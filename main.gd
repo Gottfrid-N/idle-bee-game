@@ -23,7 +23,7 @@ func update_labels():
 	  Power: %s
 	  Multiplier: %s
    Nectar: %s
-   """ % [Global.bee_amount, Global.bee_gathering_power, Global.bee_gathering_multiplier, Global.bee_nectar_amount]
+   """ % [Global.honeybee_amount, Global.honeybee_gathering_power, Global.honeybee_gathering_multiplier, Global.honeybee_nectar_amount]
 	
 	Global.bumblebee_label.text = """Bumblebees:
    Amount: %s""" % [Global.bumblebee_amount]
@@ -33,12 +33,12 @@ func _on_bee_pollinate_clock_timeout():
 	var linear := 0
 	var post_linear := 0
 	
-	if (Global.bee_gathering_power <= Global.flower_power):
-		linear = Global.bee_gathering_power
+	if (Global.honeybee_gathering_power <= Global.flower_power):
+		linear = Global.honeybee_gathering_power
 	else: 
 		linear = Global.flower_power
-		post_linear = (Global.flower_power * (Global.bee_gathering_power - Global.flower_power)) / Global.bee_gathering_power
-	Global.bee_nectar_amount += linear + post_linear
+		post_linear = (Global.flower_power * (Global.honeybee_gathering_power - Global.flower_power)) / Global.honeybee_gathering_power
+	Global.honeybee_nectar_amount += linear + post_linear
 	
 	Global.bee_gathering_label.text = """Gathering:
    Last Cycle: %s
@@ -55,7 +55,7 @@ func _on_increment_flower_amount_pressed():
 
 
 func _on_increment_bee_amount_pressed():
-	Global.bee_amount += 1
+	Global.honeybee_amount += 1
 
 
 func _on_increment_bumble_bee_amount_pressed():

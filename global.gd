@@ -6,12 +6,12 @@ extends Node
 @export var flower_power := flower_amount * flower_multiplier
 
 @export_group("bee")
-@export var bee_amount := 1
-@export var bee_gathering_multiplier := 1
-@export var bee_gathering_power := bee_amount * bee_gathering_multiplier
-@export var bee_conversion_multiplier := 1
-@export var bee_conversion_power := bee_amount * bee_gathering_multiplier
-@export var bee_nectar_amount := 0
+@export var honeybee_amount := 1
+@export var honeybee_gathering_multiplier := 1
+@export var honeybee_gathering_power := honeybee_amount * honeybee_gathering_multiplier
+@export var honeybee_conversion_multiplier := 1
+@export var honeybee_conversion_power := honeybee_amount * honeybee_gathering_multiplier
+@export var honeybee_nectar_amount := 0
 
 @export_group("bumblebee")
 @export var bumblebee_amount := 0
@@ -34,5 +34,5 @@ func _ready():
 
 func _process(delta):
 	flower_power = flower_amount * flower_multiplier
-	bee_gathering_power = bee_amount * bee_gathering_multiplier
-	bee_conversion_power = bee_amount * bee_conversion_multiplier
+	honeybee_gathering_power = honeybee_amount * honeybee_gathering_multiplier
+	honeybee_conversion_power = honeybee_amount * honeybee_conversion_multiplier
