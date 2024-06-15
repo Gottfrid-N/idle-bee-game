@@ -24,8 +24,12 @@ func _on_flowers_pressed():
 
 
 func _on_bees_pressed():
-	switch_tab($Bees)
+	switch_tab($Honeybees)
 
 
 func _on_bumblebees_pressed():
 	switch_tab($Bumblebees)
+
+
+func _on_tile_grid_pressed():
+	switch_tab($TileGrid)

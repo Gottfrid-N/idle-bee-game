@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceoilvd2gswbm"]
+[gd_scene load_steps=6 format=3 uid="uid://ceoilvd2gswbm"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xnscp"]
 [ext_resource type="Script" path="res://tab_controller.gd" id="2_861we"]
+[ext_resource type="Texture2D" uid="uid://cdjsp1mi1mpoi" path="res://addons/kenney_prototype_textures/green/texture_09.png" id="3_oaxyg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_taj13"]
+texture = ExtResource("3_oaxyg")
+0:0/size_in_atlas = Vector2i(4, 4)
+0:0/next_alternative_id = 3
+0:0/0 = 0
+16:0/size_in_atlas = Vector2i(4, 4)
+16:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_l4fss"]
+tile_size = Vector2i(64, 64)
+sources/1 = SubResource("TileSetAtlasSource_taj13")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_xnscp")
@@ -30,12 +43,16 @@ text = "Flowers"
 
 [node name="Honeybees" type="Button" parent="GUI/Tabs/TabController"]
 layout_mode = 2
-text = "Bees"
+text = "Honeybees"
 
 [node name="Bumblebees" type="Button" parent="GUI/Tabs/TabController"]
 layout_mode = 2
 text = "Bumblebees
 "
+
+[node name="TileGrid" type="Button" parent="GUI/Tabs/TabController"]
+layout_mode = 2
+text = "TileGrid"
 
 [node name="Flowers" type="VBoxContainer" parent="GUI/Tabs"]
 visible = false
@@ -47,10 +64,9 @@ offset_bottom = 648.0
 [node name="FlowerLabel" type="Label" parent="GUI/Tabs/Flowers"]
 layout_mode = 2
 text = "Flowers:
+   Amount: %s
    Power: %s
-      Amount: %s
-      Multiplier: %s
-"
+      Multiplier: %s"
 
 [node name="IncrementFlowerAmount" type="Button" parent="GUI/Tabs/Flowers"]
 layout_mode = 2
@@ -63,33 +79,40 @@ offset_left = 256.0
 offset_right = 512.0
 offset_bottom = 648.0
 
+[node name="IncrementHoneybeeAmount" type="Button" parent="GUI/Tabs/Honeybees"]
+layout_mode = 2
+text = "Increment"
+
 [node name="HoneybeeLabel" type="Label" parent="GUI/Tabs/Honeybees"]
 layout_mode = 2
-text = "Bees:
+text = "Honeybees:
    Amount: %s
    Gathering:
       Power: %s
       Multiplier: %s
    Nectar: %s
-   "
+   Honey: %s"
 
-[node name="HoneybeeGatheringClockLabel" type="Label" parent="GUI/Tabs/Honeybees"]
+[node name="HoneybeeGatheringLabel" type="Label" parent="GUI/Tabs/Honeybees"]
 layout_mode = 2
 text = "Gathering:
    Last Cycle: %s
       Linear: %s
       Postlinear: %s"
 
-[node name="IncrementHoneybeeAmount" type="Button" parent="GUI/Tabs/Honeybees"]
+[node name="HoneybeeConversionLabel" type="Label" parent="GUI/Tabs/Honeybees"]
 layout_mode = 2
-text = "Increment"
+text = "Conversion:
+   Last Cycle:
+      Nectar Consumed: %s
+      Honey Produced: %s"
 
 [node name="Bumblebees" type="VBoxContainer" parent="GUI/Tabs"]
 visible = false
 layout_mode = 0
 offset_left = 256.0
 offset_right = 512.0
-offset_bottom = 656.0
+offset_bottom = 648.0
 
 [node name="BumblebeeLabel" type="Label" parent="GUI/Tabs/Bumblebees"]
 layout_mode = 2
@@ -100,17 +123,30 @@ text = "Bumblebees:
 layout_mode = 2
 text = "Increment"
 
+[node name="TileGrid" type="VBoxContainer" parent="GUI/Tabs"]
+layout_mode = 0
+offset_left = 256.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="TileMap" type="TileMap" parent="GUI/Tabs/TileGrid"]
+tile_set = SubResource("TileSet_l4fss")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1048577, 0, 65536, 1048577, 0, 65537, 1, 0, 131072, 1, 0, 196609, 1, 0, 262144, 1, 0, 327681, 1, 0, 327680, 1048577, 0, 262145, 1048577, 0, 196608, 1048577, 0, 131073, 1048577, 0, 262146, 1, 0, 131074, 1, 0, 2, 1, 0, 327683, 1, 0, 196611, 1, 0, 65539, 1, 0, 262148, 1, 0, 131076, 1, 0, 4, 1, 0, 327685, 1, 0, 196613, 1, 0, 65541, 1, 0, 327684, 1048577, 0, 327682, 1048577, 0, 262147, 1048577, 0, 262149, 1048577, 0, 196612, 1048577, 0, 196610, 1048577, 0, 131075, 1048577, 0, 65538, 1048577, 0, 3, 1048577, 0, 65540, 1048577, 0, 131077, 1048577, 0, 5, 1048577, 0)
+
 [node name="HoneybeeGatherClock" type="Timer" parent="."]
 autostart = true
 
 [node name="HoneybeeConvertNectarClock" type="Timer" parent="."]
 wait_time = 1.5
+autostart = true
 
 [connection signal="pressed" from="GUI/Tabs/TabController/Flowers" to="GUI/Tabs" method="_on_flowers_pressed"]
 [connection signal="pressed" from="GUI/Tabs/TabController/Honeybees" to="GUI/Tabs" method="_on_bees_pressed"]
 [connection signal="pressed" from="GUI/Tabs/TabController/Bumblebees" to="GUI/Tabs" method="_on_bumblebees_pressed"]
+[connection signal="pressed" from="GUI/Tabs/TabController/TileGrid" to="GUI/Tabs" method="_on_tile_grid_pressed"]
 [connection signal="pressed" from="GUI/Tabs/Flowers/IncrementFlowerAmount" to="." method="_on_increment_flower_amount_pressed"]
-[connection signal="pressed" from="GUI/Tabs/Honeybees/IncrementHoneybeeAmount" to="." method="_on_increment_bee_amount_pressed"]
+[connection signal="pressed" from="GUI/Tabs/Honeybees/IncrementHoneybeeAmount" to="." method="_on_increment_honeybee_amount_pressed"]
 [connection signal="pressed" from="GUI/Tabs/Bumblebees/IncrementBumbleBeeAmount" to="." method="_on_increment_bumble_bee_amount_pressed"]
-[connection signal="timeout" from="HoneybeeGatherClock" to="." method="_on_bee_pollinate_clock_timeout"]
-[connection signal="timeout" from="HoneybeeConvertNectarClock" to="." method="_on_bee_convert_pollen_clock_timeout"]
+[connection signal="timeout" from="HoneybeeGatherClock" to="." method="_on_honeybee_gather_clock_timeout"]
+[connection signal="timeout" from="HoneybeeConvertNectarClock" to="." method="_on_honeybee_convert_nectar_clock_timeout"]
