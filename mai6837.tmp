@@ -1,0 +1,126 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceoilvd2gswbm"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_xnscp"]
+[ext_resource type="Script" path="res://tab_controller.gd" id="2_861we"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_xnscp")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IncrementBumbleBeeAmount" type="Button" parent="GUI"]
+layout_mode = 0
+offset_left = 792.0
+offset_top = -112.0
+offset_right = 920.0
+offset_bottom = -48.0
+text = "Increment"
+
+[node name="BumblebeeLabel" type="Label" parent="GUI"]
+layout_mode = 2
+offset_left = 376.0
+offset_top = -320.0
+offset_right = 481.0
+offset_bottom = -271.0
+text = "Bumblebees:
+   Amount: %s"
+
+[node name="Tabs" type="Control" parent="GUI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_861we")
+
+[node name="TabController" type="VBoxContainer" parent="GUI/Tabs"]
+layout_mode = 1
+offset_right = 128.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="Debug" type="Button" parent="GUI/Tabs/TabController"]
+layout_mode = 2
+text = "Debug"
+
+[node name="Flowers" type="Button" parent="GUI/Tabs/TabController"]
+layout_mode = 2
+text = "Flowers"
+
+[node name="Bees" type="Button" parent="GUI/Tabs/TabController"]
+layout_mode = 2
+text = "Bees"
+
+[node name="Debug" type="ScrollContainer" parent="GUI/Tabs"]
+layout_mode = 2
+offset_left = 256.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="DebugLabel" type="Label" parent="GUI/Tabs/Debug"]
+layout_mode = 2
+text = "debug"
+
+[node name="Bees" type="VBoxContainer" parent="GUI/Tabs"]
+visible = false
+layout_mode = 1
+offset_left = 256.0
+offset_right = 512.0
+offset_bottom = 648.0
+
+[node name="BeeLabel" type="Label" parent="GUI/Tabs/Bees"]
+layout_mode = 2
+text = "Bees:
+   Amount: %s
+   Gathering:
+      Power: %s
+      Multiplier: %s
+   Nectar: %s
+   "
+
+[node name="BeeGatheringClockLabel" type="Label" parent="GUI/Tabs/Bees"]
+layout_mode = 2
+text = "Gathering:
+   Last Cycle: %s
+      Linear: %s
+      Postlinear: %s"
+
+[node name="IncrementBeeAmount" type="Button" parent="GUI/Tabs/Bees"]
+layout_mode = 2
+text = "Increment"
+
+[node name="Flowers" type="VBoxContainer" parent="GUI/Tabs"]
+visible = false
+layout_mode = 0
+offset_left = 256.0
+offset_right = 512.0
+offset_bottom = 648.0
+
+[node name="FlowerLabel" type="Label" parent="GUI/Tabs/Flowers"]
+layout_mode = 2
+text = "Flowers:
+   Power: %s
+      Amount: %s
+      Multiplier: %s
+"
+
+[node name="IncrementFlowerAmount" type="Button" parent="GUI/Tabs/Flowers"]
+layout_mode = 2
+text = "Increment"
+
+[node name="BeeGatherClock" type="Timer" parent="."]
+autostart = true
+
+[node name="BeeConvertNectarClock" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="pressed" from="GUI/IncrementBumbleBeeAmount" to="." method="_on_increment_bumble_bee_amount_pressed"]
+[connection signal="pressed" from="GUI/Tabs/TabController/Debug" to="GUI/Tabs" method="_on_debug_pressed"]
+[connection signal="pressed" from="GUI/Tabs/TabController/Flowers" to="GUI/Tabs" method="_on_flowers_pressed"]
+[connection signal="pressed" from="GUI/Tabs/TabController/Bees" to="GUI/Tabs" method="_on_bees_pressed"]
+[connection signal="pressed" from="GUI/Tabs/Bees/IncrementBeeAmount" to="." method="_on_increment_bee_amount_pressed"]
+[connection signal="pressed" from="GUI/Tabs/Flowers/IncrementFlowerAmount" to="." method="_on_increment_flower_amount_pressed"]
+[connection signal="timeout" from="BeeGatherClock" to="." method="_on_bee_pollinate_clock_timeout"]
+[connection signal="timeout" from="BeeConvertNectarClock" to="." method="_on_bee_convert_pollen_clock_timeout"]

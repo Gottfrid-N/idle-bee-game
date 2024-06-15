@@ -10,7 +10,7 @@ func _process(_delta):
 	update_labels()
 
 
-func update_labels():
+func update_labels():	
 	Global.flower_label.text = """Flowers:
    Power: %s
 	  Amount: %s
@@ -40,13 +40,10 @@ func _on_bee_pollinate_clock_timeout():
 		post_linear = (Global.flower_power * (Global.bee_gathering_power - Global.flower_power)) / Global.bee_gathering_power
 	Global.bee_nectar_amount += linear + post_linear
 	
-	print()
-	
 	Global.bee_gathering_label.text = """Gathering:
    Last Cycle: %s
 	  Linear: %s
 	  Postlinear: %s""" % [linear + post_linear, linear, post_linear]
-
 
 
 func _on_bee_convert_nectar_clock_timeout():
@@ -63,5 +60,3 @@ func _on_increment_bee_amount_pressed():
 
 func _on_increment_bumble_bee_amount_pressed():
 	Global.bumblebee_amount += 1
-
-

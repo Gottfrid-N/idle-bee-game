@@ -12,22 +12,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="IncrementBumbleBeeAmount" type="Button" parent="GUI"]
-offset_left = 792.0
-offset_top = -112.0
-offset_right = 920.0
-offset_bottom = -48.0
-text = "Increment"
-
-[node name="BumblebeeLabel" type="Label" parent="GUI"]
-layout_mode = 2
-offset_left = 376.0
-offset_top = -320.0
-offset_right = 481.0
-offset_bottom = -271.0
-text = "Bumblebees:
-   Amount: %s"
-
 [node name="Tabs" type="Control" parent="GUI"]
 anchors_preset = 0
 offset_right = 40.0
@@ -44,37 +28,14 @@ alignment = 1
 layout_mode = 2
 text = "Flowers"
 
-[node name="Bees" type="Button" parent="GUI/Tabs/TabController"]
+[node name="Honeybees" type="Button" parent="GUI/Tabs/TabController"]
 layout_mode = 2
 text = "Bees"
 
-[node name="Bees" type="VBoxContainer" parent="GUI/Tabs"]
-visible = false
-layout_mode = 1
-offset_left = 256.0
-offset_right = 512.0
-offset_bottom = 648.0
-
-[node name="BeeLabel" type="Label" parent="GUI/Tabs/Bees"]
+[node name="Bumblebees" type="Button" parent="GUI/Tabs/TabController"]
 layout_mode = 2
-text = "Bees:
-   Amount: %s
-   Gathering:
-      Power: %s
-      Multiplier: %s
-   Nectar: %s
-   "
-
-[node name="BeeGatheringClockLabel" type="Label" parent="GUI/Tabs/Bees"]
-layout_mode = 2
-text = "Gathering:
-   Last Cycle: %s
-      Linear: %s
-      Postlinear: %s"
-
-[node name="IncrementBeeAmount" type="Button" parent="GUI/Tabs/Bees"]
-layout_mode = 2
-text = "Increment"
+text = "Bumblebees
+"
 
 [node name="Flowers" type="VBoxContainer" parent="GUI/Tabs"]
 visible = false
@@ -95,16 +56,61 @@ text = "Flowers:
 layout_mode = 2
 text = "Increment"
 
-[node name="BeeGatherClock" type="Timer" parent="."]
+[node name="Honeybees" type="VBoxContainer" parent="GUI/Tabs"]
+visible = false
+layout_mode = 1
+offset_left = 256.0
+offset_right = 512.0
+offset_bottom = 648.0
+
+[node name="HoneybeeLabel" type="Label" parent="GUI/Tabs/Honeybees"]
+layout_mode = 2
+text = "Bees:
+   Amount: %s
+   Gathering:
+      Power: %s
+      Multiplier: %s
+   Nectar: %s
+   "
+
+[node name="HoneybeeGatheringClockLabel" type="Label" parent="GUI/Tabs/Honeybees"]
+layout_mode = 2
+text = "Gathering:
+   Last Cycle: %s
+      Linear: %s
+      Postlinear: %s"
+
+[node name="IncrementHoneybeeAmount" type="Button" parent="GUI/Tabs/Honeybees"]
+layout_mode = 2
+text = "Increment"
+
+[node name="Bumblebees" type="VBoxContainer" parent="GUI/Tabs"]
+visible = false
+layout_mode = 0
+offset_left = 256.0
+offset_right = 512.0
+offset_bottom = 656.0
+
+[node name="BumblebeeLabel" type="Label" parent="GUI/Tabs/Bumblebees"]
+layout_mode = 2
+text = "Bumblebees:
+   Amount: %s"
+
+[node name="IncrementBumbleBeeAmount" type="Button" parent="GUI/Tabs/Bumblebees"]
+layout_mode = 2
+text = "Increment"
+
+[node name="HoneybeeGatherClock" type="Timer" parent="."]
 autostart = true
 
-[node name="BeeConvertNectarClock" type="Timer" parent="."]
+[node name="HoneybeeConvertNectarClock" type="Timer" parent="."]
 wait_time = 1.5
 
-[connection signal="pressed" from="GUI/IncrementBumbleBeeAmount" to="." method="_on_increment_bumble_bee_amount_pressed"]
 [connection signal="pressed" from="GUI/Tabs/TabController/Flowers" to="GUI/Tabs" method="_on_flowers_pressed"]
-[connection signal="pressed" from="GUI/Tabs/TabController/Bees" to="GUI/Tabs" method="_on_bees_pressed"]
-[connection signal="pressed" from="GUI/Tabs/Bees/IncrementBeeAmount" to="." method="_on_increment_bee_amount_pressed"]
+[connection signal="pressed" from="GUI/Tabs/TabController/Honeybees" to="GUI/Tabs" method="_on_bees_pressed"]
+[connection signal="pressed" from="GUI/Tabs/TabController/Bumblebees" to="GUI/Tabs" method="_on_bumblebees_pressed"]
 [connection signal="pressed" from="GUI/Tabs/Flowers/IncrementFlowerAmount" to="." method="_on_increment_flower_amount_pressed"]
-[connection signal="timeout" from="BeeGatherClock" to="." method="_on_bee_pollinate_clock_timeout"]
-[connection signal="timeout" from="BeeConvertNectarClock" to="." method="_on_bee_convert_pollen_clock_timeout"]
+[connection signal="pressed" from="GUI/Tabs/Honeybees/IncrementHoneybeeAmount" to="." method="_on_increment_bee_amount_pressed"]
+[connection signal="pressed" from="GUI/Tabs/Bumblebees/IncrementBumbleBeeAmount" to="." method="_on_increment_bumble_bee_amount_pressed"]
+[connection signal="timeout" from="HoneybeeGatherClock" to="." method="_on_bee_pollinate_clock_timeout"]
+[connection signal="timeout" from="HoneybeeConvertNectarClock" to="." method="_on_bee_convert_pollen_clock_timeout"]
