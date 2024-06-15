@@ -54,7 +54,7 @@ func _on_increment_flower_amount_pressed():
 	Global.flower_amount += 1
 
 
-func _on_increment_bee_amount_pressed():
+func _on_increment_honeybee_amount_pressed():
 	Global.honeybee_amount += 1
 
 
