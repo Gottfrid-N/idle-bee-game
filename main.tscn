@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceoilvd2gswbm"]
+[gd_scene load_steps=7 format=3 uid="uid://ceoilvd2gswbm"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xnscp"]
 [ext_resource type="Script" path="res://tab_controller.gd" id="2_861we"]
 [ext_resource type="Texture2D" uid="uid://cdjsp1mi1mpoi" path="res://addons/kenney_prototype_textures/green/texture_09.png" id="3_oaxyg"]
+[ext_resource type="Script" path="res://tilemap.gd" id="4_6kvby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_taj13"]
 texture = ExtResource("3_oaxyg")
@@ -11,9 +12,12 @@ texture = ExtResource("3_oaxyg")
 0:0/0 = 0
 16:0/size_in_atlas = Vector2i(4, 4)
 16:0/0 = 0
+16:0/0/custom_data_0 = 1
 
 [sub_resource type="TileSet" id="TileSet_l4fss"]
 tile_size = Vector2i(64, 64)
+custom_data_layer_0/name = "type"
+custom_data_layer_0/type = 2
 sources/1 = SubResource("TileSetAtlasSource_taj13")
 
 [node name="Main" type="Node"]
@@ -133,6 +137,7 @@ offset_bottom = 648.0
 tile_set = SubResource("TileSet_l4fss")
 format = 2
 layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1048577, 0, 65536, 1048577, 0, 65537, 1, 0, 131072, 1, 0, 196609, 1, 0, 262144, 1, 0, 327681, 1, 0, 327680, 1048577, 0, 262145, 1048577, 0, 196608, 1048577, 0, 131073, 1048577, 0, 262146, 1, 0, 131074, 1, 0, 2, 1, 0, 327683, 1, 0, 196611, 1, 0, 65539, 1, 0, 262148, 1, 0, 131076, 1, 0, 4, 1, 0, 327685, 1, 0, 196613, 1, 0, 65541, 1, 0, 327684, 1048577, 0, 327682, 1048577, 0, 262147, 1048577, 0, 262149, 1048577, 0, 196612, 1048577, 0, 196610, 1048577, 0, 131075, 1048577, 0, 65538, 1048577, 0, 3, 1048577, 0, 65540, 1048577, 0, 131077, 1048577, 0, 5, 1048577, 0)
+script = ExtResource("4_6kvby")
 
 [node name="HoneybeeGatherClock" type="Timer" parent="."]
 autostart = true
