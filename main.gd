@@ -1,75 +1,33 @@
 extends Node
 
-
+@export var tiles: Array
 
 func _ready():
+	var grid: TileMapLayer = get_node("TileMapLayer")
+	setup_tiles(5, 5)
+	for tile: Tile in tiles:
+		grid.set_cell(tile.position, 0, Vector2i(0, 0))
+
+
+func _process(delta):
 	pass
 
 
-func _process(_delta):
-	update_labels()
+func setup_tiles(rows: int, columns: int):
+	for row in range(rows):
+		for column in range(columns):
+			tiles.append(Tile.new(-0, [], Vector2i(row, column)))
 
 
-func update_labels():	
-	Global.flower_label.text = """Flowers:
-   Amount: %s
-   Power: %s
-      Multiplier: %s""" % [Global.flower_power, Global.flower_amount, Global.flower_multiplier]
+class Tile extends Object:
+	@export var type: int
+	@export var data: Array
+	@export var position: Vector2i
+
+	func _init(_type: int, _data: Array, _position: Vector2i):
+		position = _position
+		type = _type
+		data = _data
 	
-	Global.honeybee_label.text = """Honeybees:
-   Amount: %s
-   Gathering:
-      Power: %s
-      Multiplier: %s
-   Nectar: %s
-   Honey: %s""" % [Global.honeybee_amount, Global.honeybee_gathering_power, Global.honeybee_gathering_multiplier, Global.honeybee_nectar_amount, Global.honeybee_honey_amount]
-	
-	Global.bumblebee_label.text = """Bumblebees:
-   Amount: %s""" % [Global.bumblebee_amount]
-
-
-func _on_honeybee_gather_clock_timeout():
-	var linear := 0
-	var post_linear := 0
-	
-	if (Global.honeybee_gathering_power <= Global.flower_power):
-		linear = Global.honeybee_gathering_power
-	else: 
-		linear = Global.flower_power
-		post_linear = (Global.flower_power * (Global.honeybee_gathering_power - Global.flower_power)) / Global.honeybee_gathering_power
-	Global.honeybee_nectar_amount += linear + post_linear
-	
-	Global.honeybee_gathering_label.text = """Gathering:
-   Last Cycle: %s
-      Linear: %s
-      Postlinear: %s""" % [linear + post_linear, linear, post_linear]
-
-
-func _on_honeybee_convert_nectar_clock_timeout():
-	var nectar_consumed := 0
-	var honey_produced := 0
-	if (Global.honeybee_nectar_amount > Global.honeybee_conversion_power):
-		nectar_consumed = Global.honeybee_conversion_power
-		Global.honeybee_nectar_amount -= nectar_consumed
-		honey_produced = Global.honeybee_conversion_power / 4
-		Global.honeybee_honey_amount += honey_produced
-
-	Global.honeybee_conversion_label.text = """Conversion:
-   Last Cycle:
-      Nectar Consumed: %s
-      Honey Produced: %s""" % [nectar_consumed, honey_produced]
-
-
-func _on_increment_flower_amount_pressed():
-	Global.flower_amount += 1
-
-
-func _on_increment_honeybee_amount_pressed():
-	Global.honeybee_amount += 1
-
-
-func _on_increment_bumble_bee_amount_pressed():
-	Global.bumblebee_amount += 1
-
-
-
+	func _to_string():
+		return str(type) + str(data)
