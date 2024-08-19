@@ -19,7 +19,15 @@ config/icon="res://icon.svg"
 
 Global="*res://global.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/tile_map_layer_with_data_array/plugin.cfg", "res://addons/tilemaplayerwithdataarray/plugin.cfg")

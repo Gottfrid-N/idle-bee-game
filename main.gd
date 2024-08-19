@@ -1,33 +1,21 @@
 extends Node
 
-@export var tiles: Array
+@export var hives: Array
+var tile_map: TileMapLayerWithDataArray
 
 func _ready():
-	var grid: TileMapLayer = get_node("TileMapLayer")
-	setup_tiles(5, 5)
-	for tile: Tile in tiles:
-		grid.set_cell(tile.position, 0, Vector2i(0, 0))
+    tile_map = get_node("TileMapLayer")
+    generate_tile_array(5, 5)
+    tile_map.refresh_tiles_from_data()
 
 
 func _process(delta):
-	pass
+    pass
 
 
-func setup_tiles(rows: int, columns: int):
-	for row in range(rows):
-		for column in range(columns):
-			tiles.append(Tile.new(-0, [], Vector2i(row, column)))
-
-
-class Tile extends Object:
-	@export var type: int
-	@export var data: Array
-	@export var position: Vector2i
-
-	func _init(_type: int, _data: Array, _position: Vector2i):
-		position = _position
-		type = _type
-		data = _data
-	
-	func _to_string():
-		return str(type) + str(data)
+func generate_tile_array(rows: int, columns: int):
+    for row: int in rows:
+        for column: int in columns:
+            print((row*columns) + column)
+            print(row % 2)
+            tile_map.tiles.append(Tile.new(Vector2i(row, column), -0, [1000], row % 2, Vector2i(0, 0)))
